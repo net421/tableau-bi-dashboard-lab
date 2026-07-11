@@ -1,31 +1,64 @@
 # Tableau Calculated Fields
 
-## Revenue
+## Unit Fill Rate
 
-```text
-SUM([Revenue])
+```tableau
+SUM([units_shipped]) / SUM([units_ordered])
 ```
 
-## Gross Margin %
+## Complete Order Rate
 
-```text
-SUM([Revenue] - [Cost]) / SUM([Revenue])
+```tableau
+COUNTD(IF [in_full] THEN [order_id] END)
+/
+COUNTD([order_id])
 ```
 
-## OTIF %
+## On-Time Delivery
 
-```text
-SUM(IF [On Time] = TRUE AND [In Full] = TRUE THEN 1 ELSE 0 END) / COUNT([Order ID])
+```tableau
+COUNTD(IF [on_time] THEN [order_id] END)
+/
+COUNTD([order_id])
 ```
 
-## Fill Rate
+## OTIF
 
-```text
-SUM([Units Shipped]) / SUM([Units Ordered])
+```tableau
+COUNTD(IF [otif] THEN [order_id] END)
+/
+COUNTD([order_id])
 ```
 
-## Forecast Accuracy
+## Freight Cost per kg
 
-```text
-1 - ABS(SUM([Forecast Units]) - SUM([Actual Units])) / SUM([Actual Units])
+```tableau
+SUM([freight_cost]) / SUM([shipment_weight_kg])
+```
+
+## Cost-to-Serve Ratio
+
+```tableau
+SUM([logistics_cost]) / SUM([revenue])
+```
+
+## Delay Bucket
+
+```tableau
+IF [delivery_delay_days] <= 0 THEN "On Time"
+ELSEIF [delivery_delay_days] <= 2 THEN "1–2 Days Late"
+ELSEIF [delivery_delay_days] <= 5 THEN "3–5 Days Late"
+ELSE "6+ Days Late"
+END
+```
+
+## Service Exception Priority
+
+```tableau
+IF NOT [otif] AND [logistics_cost] > { FIXED : MEDIAN([logistics_cost]) }
+THEN "High"
+ELSEIF NOT [otif]
+THEN "Medium"
+ELSE "Normal"
+END
 ```
