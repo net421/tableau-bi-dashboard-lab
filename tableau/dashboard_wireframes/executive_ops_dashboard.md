@@ -1,24 +1,9 @@
 # Executive Operations Dashboard Wireframe
 
-## Top Row
+The canonical detailed wireframe is
+[`executive_operations_dashboard.md`](executive_operations_dashboard.md).
 
-- OTIF %
-- Fill Rate
-- Revenue
-- Gross Margin %
-- Open Exceptions
-
-## Main Views
-
-1. Trend line: OTIF and fill rate by week.
-2. Bar chart: freight cost by carrier.
-3. Heatmap: service level by region and product category.
-4. Exception table: late, partial, high-cost and stockout-risk shipments.
-
-## Filters
-
-- Date range
-- Region
-- Product category
-- Carrier
-- Customer segment
+This compatibility path is retained from the original repository so existing
+links continue to resolve. The governed dashboard uses executive KPI cards,
+weighted service trends, carrier and warehouse scorecards, customer
+cost-to-serve analysis, global filters, and action-oriented exceptions.
